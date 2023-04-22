@@ -18,7 +18,7 @@ root.iconphoto(False,image_icon)
 lower_frame = tk.Frame(root,bg="#FFFFFF")
 lower_frame.pack(fill= "both" , side = BOTTOM)
 
-vid_player = TkinterVideo(root, scaled = True)
+vid_player: TkinterVideo = TkinterVideo(root, scaled = True)
 vid_player.pack(expand = True, fill = "both")
 
 def update_duration(event):
@@ -75,17 +75,17 @@ end_time.pack(side = "left")
 vid_player.bind("<<Duration>>")
 
 #BUTTONS
-load_btn = tk.Button(root, text = "Search",bg = "0B2447", font = ("impact" , 12, "bold" ),foreground = [('active', '!disabled' , 'black')],background = [('active' , 'white')] , command = lambda :  load_video)
+load_btn = tk.Button(root, text = "Search",bg = "0B2447", font = ("impact" , 12, "bold" ), command = lambda :  load_video)
 load_btn.pack(ipadx=12 , ipady=4, anchor = tk.NE)
 
 
-Button_bckwrd = PhotoImage(file="images\backward button.png")
+Button_bckwrd = PhotoImage(file="images\ backward button.png")
 backb = tk.Button(lower_frame,image=Button_bckwrd , bd=0 ,height=50 , width = 50 , command = lambda:skip(-5)).pack(side = LEFT)
 
 play_pause_btn = tk.Button(lower_frame , text = "Play",height=2, width=40 , command = play_pause)
 play_pause_btn.pack(expand = True,fill = "both" , side = LEFT)
 
-Button_frwrd = PhotoImage(file="images\forward button.png")
+Button_frwrd = PhotoImage(file="images\ forward button.png")
 backf = tk.Button(lower_frame,image=Button_frwrd , bd=0 ,height=50 , width = 50 , command = lambda:skip(5)).pack(side = LEFT)
 
 vid_player.bind("<<Duration>>" , update_duration)
