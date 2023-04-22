@@ -12,7 +12,7 @@ root.geometry("800x700+290+10")
 frame =tk.Frame(root)
 frame.pack()
 
-image_icon = PhotoImage(file= "images\BadhirSunLogo.gif")
+image_icon = PhotoImage(file= "BadhirSunLogo.gif")
 root.iconphoto(False,image_icon)
 
 lower_frame = tk.Frame(root,bg="#FFFFFF")
@@ -79,13 +79,13 @@ load_btn = tk.Button(root, text = "Search",bg = "0B2447", font = ("impact" , 12,
 load_btn.pack(ipadx=12 , ipady=4, anchor = tk.NE)
 
 
-Button_bckwrd = PhotoImage(file="images\ backward button.png")
+Button_bckwrd = PhotoImage(file="backward button.png")
 backb = tk.Button(lower_frame,image=Button_bckwrd , bd=0 ,height=50 , width = 50 , command = lambda:skip(-5)).pack(side = LEFT)
 
 play_pause_btn = tk.Button(lower_frame , text = "Play",height=2, width=40 , command = play_pause)
 play_pause_btn.pack(expand = True,fill = "both" , side = LEFT)
 
-Button_frwrd = PhotoImage(file="images\ forward button.png")
+Button_frwrd = PhotoImage(file="forward button.png")
 backf = tk.Button(lower_frame,image=Button_frwrd , bd=0 ,height=50 , width = 50 , command = lambda:skip(5)).pack(side = LEFT)
 
 vid_player.bind("<<Duration>>" , update_duration)
