@@ -1,16 +1,19 @@
 import spacy
 
 nlp = spacy.load("en_core_web_sm")
-doc = nlp("he went to school and they went to club.")
-new = ""
+normal_sub = ""
+with open('script.txt','r') as subs:
+    normal_sub = subs.read()
+doc = nlp(normal_sub)
+new_sub = ""
 for token in doc:
     if token.pos_ == "CCONJ":
-        new += '. '
+        new_sub += '. '
+    elif token.pos_ == "PUNCT" and token.text != '.':
+        new_sub += ''
     else:
-        new += " "+token.text; 
-doc = nlp(new[1:])
-for token in doc:
-    print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
-            token.shape_, token.is_alpha, token.is_stop)
+        new_sub += " "+token.text; 
+doc = nlp(new_sub[1:])
+for x in doc.sents:
+    print(x.text)
 
-print(doc)
