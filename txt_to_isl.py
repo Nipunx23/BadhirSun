@@ -7,7 +7,7 @@ with open('script.txt','r') as subs:
 doc = nlp(normal_sub)
 new_sub = ""
 for token in doc:
-    if token.pos_ == "CCONJ":
+    if token.pos_ == "CONJ" and token.pos_ != "CCONJ":
         new_sub += '. '
     elif token.pos_ == "PUNCT" and token.text != '.':
         new_sub += ''
