@@ -11,6 +11,14 @@ for token in doc:
         new_sub += '. '
     elif token.pos_ == "PUNCT" and token.text != '.':
         new_sub += ''
+    elif token.text == 'I':
+        new_sub += ' me'
+    elif token.text == "'d":
+        new_sub += ' would'
+    elif token.text == "'re":
+        new_sub += ' are'
+    elif token.text == "'s":
+        new_sub += ' is'
     else:
         new_sub += " "+token.text; 
 doc = nlp(new_sub[1:])
