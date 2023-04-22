@@ -66,7 +66,7 @@ start_time.pack(side = "left")
 
 progress_value = tk.IntVar(root)
 
-progress_slider = tk.Scale(root, variable = progress_value, from_ =0, to =0, orientation = "horizontal", command = seek )
+progress_slider = tk.Scale(root, variable=progress_value, from_=0, to=0, orient="horizontal", command=seek)
 progress_slider.pack(side = "left" , fill = "x" , expand = True)
 
 end_time = tk.Label(root, text = str(datetime.timedelta(seconds =0)))
@@ -75,7 +75,7 @@ end_time.pack(side = "left")
 vid_player.bind("<<Duration>>")
 
 #BUTTONS
-load_btn = tk.Button(root, text = "Search",bg = "0B2447", font = ("impact" , 12, "bold" ), command = lambda :  load_video)
+load_btn = tk.Button(root, text="Search", bg="blue", font=("impact", 12, "bold"), command=lambda: load_video())
 load_btn.pack(ipadx=12 , ipady=4, anchor = tk.NE)
 
 
