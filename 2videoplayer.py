@@ -3,11 +3,41 @@ import datetime
 import tkinter as tk
 from tkinter import filedialog
 from tkVideoPlayer import TkinterVideo
+import webbrowser
+import os
 
 
 root=tk.Tk()
 root.title("𝕭𝖆𝖉𝖍𝖎𝖗 𝕾𝖚𝖓")
 root.geometry("800x700+290+10")
+
+
+
+def search():
+    search_term = entry.get()
+    if var.get() == 0:  # search in YouTube
+        url = f"https://www.youtube.com/results?search_query={search_term}"
+        webbrowser.open(url)
+    else:  # search locally
+        os.startfile(search_term)
+
+var = tk.IntVar()
+var.set(0)
+
+label = tk.Label(root, text="Enter a search term:")
+label.pack(side="top")
+
+entry = tk.Entry(root)
+entry.pack(side="top")
+
+radio_youtube = tk.Radiobutton(root, text="Search in YouTube", variable=var, value=0)
+radio_youtube.pack(side="top")
+
+radio_system = tk.Radiobutton(root, text="Search in System", variable=var, value=1)
+radio_system.pack(side="top")
+
+button = tk.Button(root, text="Search", command=search)
+button.pack(side="top")
 
 
 frame =tk.Frame(root)
@@ -62,10 +92,6 @@ def load_video2():
 load_btn1 = tk.Button(lower_frame, text="Load Video 1", command=load_video1)
 load_btn1.pack(side=LEFT)
 
-load_btn2 = tk.Button(lower_frame, text="Load Video 2", command=load_video2)
-load_btn2.pack(side=LEFT)
-
-
 def seek1(value):
     vid_player1.seek(int(value))
 
@@ -110,6 +136,8 @@ def video_ended2(event):
     progress_slider2.set(0)
 
 
+
+
 start_time1 = tk
 start_time1 = tk.Label(lower_frame, text="00:00:00", font=("Helvetica", 10))
 start_time1.pack(side=LEFT)
@@ -120,14 +148,18 @@ progress_slider1.pack(side=LEFT, fill = "both", expand = True)
 end_time1 = tk.Label(lower_frame, text="00:00:00", font=("Helvetica", 10))
 end_time1.pack(side=LEFT)
 
-skip_back_btn1 = tk.Button(lower_frame, text="<<10s", command=lambda: skip1(-10))
-skip_back_btn1.pack(side=LEFT)
+skip_back_btn2 = tk.Button(lower_frame, text="<<10s", command=lambda: skip2(-10))
+skip_back_btn2.pack(side=LEFT, padx=10)
 
 play_pause_btn1 = tk.Button(lower_frame, text="Play", command=play_pause1)
 play_pause_btn1.pack(side=LEFT)
 
-skip_forward_btn1 = tk.Button(lower_frame, text="10s>>", command=lambda: skip1(10))
-skip_forward_btn1.pack(side=LEFT)
+skip_forward_btn2 = tk.Button(lower_frame, text=">>10s", command=lambda: skip2(10))
+skip_forward_btn2.pack(side=LEFT, padx=10)
+
+load_btn2 = tk.Button(lower_frame, text="Load Video 2", command=load_video2)
+load_btn2.pack(side=LEFT)
+
 
 progress_value1 = tk.DoubleVar()
 vid_player1.bind("<<VideoPositionChanged>>", update_scale)
