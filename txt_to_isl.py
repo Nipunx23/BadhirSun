@@ -8,9 +8,9 @@ normal_sub = ""
 with open('script.txt','r') as subs:
     normal_sub = subs.read()
 doc = nlp(normal_sub)
-for token in doc:
-    print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
-            token.shape_, token.is_alpha, token.is_stop)
+# for token in doc:
+#     print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
+#             token.shape_, token.is_alpha, token.is_stop)
 new_sub = ""
 for token in doc:
     if token.pos_ == "CONJ":
@@ -56,15 +56,27 @@ for i in range(n_sent):
     cur_mod_sent = []
     cur_sent_dep = new_sent_dep[i]
     for token in cur_sent:
+        print(token.text, token.lemma_, token.pos_, token.dep_)
+    for token in cur_sent:
         cur_mod_sent.append(token.text)
     temp_i = 0
     for token in cur_sent:
-        if(token.pos_ == "VERB"):
-            next_sub = next(x for x in new_sent_dep[i][temp_i:] if x[-4:] == 'subj')
-            next_i = new_sent_dep[i].index(next_sub)
-            el = cur_mod_sent[i]
-            del cur_mod_sent[i]
+        if(token.pos_ in ["VERB","ADV"] and token.dep_[-4:] != 'subj'):
+            print(1)
+            for x in new_sent_dep[i][temp_i:]:
+                if x[-4:] == "subj":
+                    next_sub = x
+                    break
+            try:
+                next_i = new_sent_dep[i][temp_i:].index(next_sub)+temp_i
+            except ValueError: 
+                next_i = -1
+            el = cur_mod_sent[temp_i]
+            print(el)
+            del cur_mod_sent[temp_i]
+            cur_mod_sent.insert(next_i,el)
         temp_i += 1
-    
-for token in doc:
-    print(token.text,'[',token.dep_,']')
+    new_sent[i] = " ".join(cur_mod_sent)
+doc = nlp("".join(new_sent))
+for token in doc.sents:
+    print(token.text)
