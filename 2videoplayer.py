@@ -40,21 +40,31 @@ def update_scale(event):
     progress_value1.set(vid_player1.current_duration())
     progress_value2.set(vid_player2.current_duration())
 
+
 def load_video1():
-     file_path = filedialog.askopenfilename()
-     if file_path:
-         vid_player1.load(file_path)
-         progress_slider1.config(to =0, from_ =0)
-         play_pause_btn1["text"] = "play"
-         progress_value1.set(0)
+    file_path = filedialog.askopenfilename()
+    if file_path:
+        vid_player1.load(file_path)
+        progress_slider1.config(to=0, from_=0)
+        play_pause_btn1["text"] = "play"
+        progress_value1.set(0)
+
 
 def load_video2():
-     file_path = filedialog.askopenfilename()
-     if file_path:
-         vid_player2.load(file_path)
-         progress_slider2.config(to =0, from_ =0)
-         play_pause_btn2["text"] = "play"
-         progress_value2.set(0)
+    file_path = filedialog.askopenfilename()
+    if file_path:
+        vid_player2.load(file_path)
+        progress_slider2.config(to=0, from_=0)
+        play_pause_btn2["text"] = "play"
+        progress_value2.set(0)
+
+
+load_btn1 = tk.Button(lower_frame, text="Load Video 1", command=load_video1)
+load_btn1.pack(side=LEFT)
+
+load_btn2 = tk.Button(lower_frame, text="Load Video 2", command=load_video2)
+load_btn2.pack(side=LEFT)
+
 
 def seek1(value):
     vid_player1.seek(int(value))
@@ -100,64 +110,51 @@ def video_ended2(event):
     progress_slider2.set(0)
 
 
+start_time1 = tk
+start_time1 = tk.Label(lower_frame, text="00:00:00", font=("Helvetica", 10))
+start_time1.pack(side=LEFT)
 
-start_time1 = tk.Label(root, text = str(datetime.timedelta(seconds =0)))
-start_time1.pack(side = "left")
+progress_slider1 = tk.Scale(lower_frame, orient = HORIZONTAL, command = seek1)
+progress_slider1.pack(side=LEFT, fill = "both", expand = True)
 
-progress_value1 = tk.IntVar(root)
-
-progress_slider1 = tk.Scale(root, variable=progress_value1, from_=0,
-orient=HORIZONTAL, showvalue=0)
-end_time1 = tk.Label(root, text = "00:00:00")
-end_time1.pack(side = "left")
-
-play_pause_btn1 = tk.Button(lower_frame, text="play", command=play_pause1)
-play_pause_btn1.pack(side=LEFT, padx=10)
-
-load_btn1 = tk.Button(lower_frame, text="Load Video 1", command=load_video1)
-load_btn1.pack(side=LEFT, padx=10)
+end_time1 = tk.Label(lower_frame, text="00:00:00", font=("Helvetica", 10))
+end_time1.pack(side=LEFT)
 
 skip_back_btn1 = tk.Button(lower_frame, text="<<10s", command=lambda: skip1(-10))
-skip_back_btn1.pack(side=LEFT, padx=10)
+skip_back_btn1.pack(side=LEFT)
 
-skip_forward_btn1 = tk.Button(lower_frame, text=">>10s", command=lambda: skip1(10))
-skip_forward_btn1.pack(side=LEFT, padx=10)
+play_pause_btn1 = tk.Button(lower_frame, text="Play", command=play_pause1)
+play_pause_btn1.pack(side=LEFT)
 
-progress_slider1 = tk.Scale(lower_frame, orient="horizontal", length=500, variable=progress_value1, command=seek1)
-progress_slider1.pack(side=LEFT, padx=10)
+skip_forward_btn1 = tk.Button(lower_frame, text="10s>>", command=lambda: skip1(10))
+skip_forward_btn1.pack(side=LEFT)
 
-vid_player1.bind("<Button-1>", update_scale)
-vid_player1.bind("<ButtonRelease-1>", update_scale)
-vid_player1.bind("<Configure>", update_duration)
-vid_player1.bind("<End>", video_ended1)
+progress_value1 = tk.DoubleVar()
+vid_player1.bind("<<VideoPositionChanged>>", update_scale)
+vid_player1.bind("<<VideoLoaded>>", update_duration)
+vid_player1.bind("<<VideoEnded>>", video_ended1)
 
-start_time2 = tk.Label(root, text = str(datetime.timedelta(seconds =0)))
-start_time2.pack(side = "left")
+start_time2 = tk.Label(lower_frame, text="00:00:00", font=("Helvetica", 10))
+start_time2.pack(side=LEFT)
 
-progress_value2 = tk.IntVar(root)
+progress_slider2 = tk.Scale(lower_frame, orient = HORIZONTAL, command = seek2)
+progress_slider2.pack(side=LEFT, fill = "both", expand = True)
 
-end_time2 = tk.Label(root, text = "00:00:00")
-end_time2.pack(side = "left")
-
-play_pause_btn2 = tk.Button(lower_frame, text="play", command=play_pause2)
-play_pause_btn2.pack(side=LEFT, padx=10)
-
-load_btn2 = tk.Button(lower_frame, text="Load Video 2", command=load_video2)
-load_btn2.pack(side=LEFT, padx=10)
+end_time2 = tk.Label(lower_frame, text="00:00:00", font=("Helvetica", 10))
+end_time2.pack(side=LEFT)
 
 skip_back_btn2 = tk.Button(lower_frame, text="<<10s", command=lambda: skip2(-10))
-skip_back_btn2.pack(side=LEFT, padx=10)
+skip_back_btn2.pack(side=LEFT)
 
-skip_forward_btn2 = tk.Button(lower_frame, text=">>10s", command=lambda: skip2(10))
-skip_forward_btn2.pack(side=LEFT, padx=10)
+play_pause_btn2 = tk.Button(lower_frame, text="Play", command=play_pause2)
+play_pause_btn2.pack(side=LEFT)
 
-progress_slider2 = tk.Scale(lower_frame, orient="horizontal", length=500, variable=progress_value2, command=seek2)
-progress_slider2.pack(side=LEFT, padx=10)
+skip_forward_btn2 = tk.Button(lower_frame, text="10s>>", command=lambda: skip2(10))
+skip_forward_btn2.pack(side=LEFT)
 
-
-vid_player2.bind("<Button-1>", update_scale)
-vid_player2.bind("<ButtonRelease-1>", update_scale)
-vid_player2.bind("<Configure>", update_duration)
-vid_player2.bind("<End>", video_ended2)
+progress_value2 = tk.DoubleVar()
+vid_player2.bind("<<VideoPositionChanged>>", update_scale)
+vid_player2.bind("<<VideoLoaded>>", update_duration)
+vid_player2.bind("<<VideoEnded>>", video_ended2)
 
 root.mainloop()
