@@ -61,7 +61,9 @@ for i in range(n_sent):
     for token in cur_sent:
         if(token.pos_ == "VERB"):
             next_sub = next(x for x in new_sent_dep[i][temp_i:] if x[-4:] == 'subj')
-
+            next_i = new_sent_dep[i].index(next_sub)
+            el = cur_mod_sent[i]
+            del cur_mod_sent[i]
         temp_i += 1
     
 for token in doc:
