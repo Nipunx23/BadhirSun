@@ -32,7 +32,6 @@ for token in doc:
     check_token = nlp(token.lemma_)[0]
     if(check_token.pos_ == "VERB" and check_token.tag_ not in ['VBP','VBZ','VB']):
         new_sub = new_sub.replace(" "+token.text+" ", " "+sbs.stem(check_token.text)+" ")
-        print('[',token.text,']',new_sub)
     elif(check_token.text != token.text):
         new_sub = new_sub.replace(token.text,check_token.text)
     
