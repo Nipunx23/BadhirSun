@@ -26,7 +26,6 @@ for token in doc:
         new_sub += " "+new_add
 doc = nlp(new_sub[1:])
 sbs = SBS(language='english')
-count = 0
 for token in doc:
     if(token.text == 'me'):
         continue
@@ -38,7 +37,17 @@ for token in doc:
         new_sub = new_sub.replace(token.text,check_token.text)
     
 doc = nlp(new_sub[1:])
+new_sent = []
+new_sent_dep = []
 for x in doc.sents:
-    print(x.text)
+    new_sent.append(x.text)
+    cur_sent_dep = []
+    for token in x:
+        cur_sent_dep.append(token.dep_)
+    new_sent_dep.append(cur_sent_dep)
+
+for sent in new_sent:
+    n = len(sent)
+    
 for token in doc:
-    print(token.dep_)
+    print(token.text,'[',token.dep_,']')
