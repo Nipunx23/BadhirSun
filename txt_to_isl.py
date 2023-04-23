@@ -38,15 +38,31 @@ for token in doc:
 doc = nlp(new_sub[1:])
 new_sent = []
 new_sent_dep = []
+new_sent_pos = []
 for x in doc.sents:
     new_sent.append(x.text)
     cur_sent_dep = []
+    cur_sent_pos = []
     for token in x:
         cur_sent_dep.append(token.dep_)
+        cur_sent_pos.append(token.pos_)
     new_sent_dep.append(cur_sent_dep)
+    new_sent_pos.append(cur_sent_pos)
 
-for sent in new_sent:
-    n = len(sent)
+n_sent = len(new_sent)
+for i in range(n_sent):
+    cur_sent = nlp(new_sent[i])
+    n_cur_sent = len(new_sent[i])
+    cur_mod_sent = []
+    cur_sent_dep = new_sent_dep[i]
+    for token in cur_sent:
+        cur_mod_sent.append(token.text)
+    temp_i = 0
+    for token in cur_sent:
+        if(token.pos_ == "VERB"):
+            next_sub = next(x for x in new_sent_dep[i][temp_i:] if x[-4:] == 'subj')
+
+        temp_i += 1
     
 for token in doc:
     print(token.text,'[',token.dep_,']')
